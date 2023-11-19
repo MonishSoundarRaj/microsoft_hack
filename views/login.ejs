@@ -1,0 +1,54 @@
+<%-include('partials/header')-%>
+
+<div class="form-container-main">
+
+<div class="tab-container">
+<div class="tab active-tab" id="studentTab">STUDENT</div>
+<div class="tab" id="instructorTab">INSTRUCTOR</div>
+</div>
+
+<form action="" class="form-container" id="studentForm">
+  <h2>STUDENT LOGIN</h2>
+  <div class="form-field">
+    <input type="email" id="studentEmail" placeholder="EMAIL" required>
+  </div>
+  <div class="form-field">
+    <input type="password" id="studentPassword" placeholder="PASSWORD" required>
+  </div>
+  <div>Need help logging in? <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Reset your password</a></div>
+  <div>Don't have a account? <a href="/register">Create one</a></div>
+  <button>LOGIN</button>
+</form>
+
+<form action="" id="instructorForm" class="form-container hidden">
+  <h2>INSTRUCTOR LOGIN</h2>
+  <div class="form-field">
+    <input type="email" id="instructorEmail" placeholder="EMAIL" required>
+  </div>
+  <div class="form-field">
+    <input type="password" id="instructorPassword" placeholder="PASSWORD" required>
+  </div>
+  <div>Need help logging in? <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Reset your password</a></div>
+  <div>Don't have a account? <a href="/register?role=instructor">Create one</a></div>
+  <button>LOGIN</button>
+</form>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Password Reset Cannot Be Processed Now</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>As this is still a test application password reset functionality is not active</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%-include('partials/footer')-%>

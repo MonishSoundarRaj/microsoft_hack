@@ -1,0 +1,67 @@
+<%-include('partials/header')-%>
+
+<div class="form-container-main">
+
+<div class="tab-container">
+<div class="tab active-tab" id="studentTab">STUDENT</div>
+<div class="tab" id="instructorTab">INSTRUCTOR</div>
+</div>
+
+<form action="" class="form-container" id="studentForm">
+  <h2>REGISTER AS STUDENT</h2>
+  <div class="form-field">
+    <input type="text", id="studentName", placeholder="NAME">
+  </div>
+  <div class="form-field">
+    <input type="text" id="studentUniversity" placeholder="UNIVERSITY">
+  </div>
+  <div class="form-field">
+    <input type="email" id="studentEmail" placeholder="EMAIL">
+  </div>
+  <div class="form-field">
+    <input type="password" id="studentPassword" placeholder="PASSWORD">
+  </div>
+  <div>Already have account? <a href="/login">Login</a></div>
+  <button>REGISTER</button>
+</form>
+
+
+<form action="" id="instructorForm" class="form-container hidden">
+  <h2>REGISTER AS INSTRUCTOR</h2>
+  <div class="form-field">
+    <input type="text" id="instructorName" placeholder="NAME">
+  </div>
+  <div class="form-field">
+    <input type="text" id="instructorUniversity" placeholder="UNIVERSITY ASSOCIATED">
+  </div>
+  <div class="form-field">
+    <input type="email" id="instructorEmail" placeholder="EMAIL">
+  </div>
+  <div class="form-field">
+    <input type="text" id="instructorSubject" placeholder="SUBJECT YOU ARE FOCUSSED ON">
+  </div>
+  <div class="form-field">
+    <input type="password" id="instructorPassword" placeholder="PASSWORD">
+  </div>
+  <div>Already have account? <a href="/login?role=instructor">Login</a></div>
+  <button>REGISTER</button>
+</form>
+</div>
+
+<script>
+  document.getElementById('studentTab').addEventListener('click', function() {
+    document.getElementById('instructorForm').classList.add('hidden');
+    document.getElementById('studentForm').classList.remove('hidden');
+    document.getElementById('studentTab').classList.add('active-tab');
+    document.getElementById('instructorTab').classList.remove('active-tab');
+  });
+
+  document.getElementById('instructorTab').addEventListener('click', function() {
+    document.getElementById('studentForm').classList.add('hidden');
+    document.getElementById('instructorForm').classList.remove('hidden');
+    document.getElementById('instructorTab').classList.add('active-tab');
+    document.getElementById('studentTab').classList.remove('active-tab');
+  });
+</script>
+
+<%-include('partials/footer')-%>
