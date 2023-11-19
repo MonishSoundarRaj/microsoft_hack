@@ -11,9 +11,11 @@
   <h2>STUDENT LOGIN</h2>
   <div class="form-field">
     <input type="email" id="studentEmail" placeholder="EMAIL" name="email" required>
+    <p class="alert-email-check hidden studentEmailRequired">Please enter a valid email</p>
   </div>
   <div class="form-field">
     <input type="password" id="studentPassword" placeholder="PASSWORD" name="password" required>
+    <p class="alert-email-check hidden studentPasswordRequired">Please enter a password</p>
   </div>
   <div>Need help logging in? <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Reset your password</a></div>
   <div>Don't have a account? <a href="/register-student">Create one</a></div>
@@ -40,44 +42,65 @@
 
 <script>
   document.getElementById('studentLoginButton').addEventListener('click', function(event) {
-  event.preventDefault(); 
-
-  let studentLoginButton = document.getElementById('studentLoginButton');
-  studentLoginButton.classList.add('disabled'); 
-  const span = studentLoginButton.querySelector('span');
-  span.innerHTML = '';  
-  span.classList.add('loader');
-
-  const data = {
-    email: document.getElementById('studentEmail').value,
-    password: document.getElementById('studentPassword').value
-  };
-
-  fetch('/login-student', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (response.ok) {
-      return response.json(); 
-    }
-    throw new Error('Network response was not ok');
-  })
-  .then(data => {
-    
-    window.location.href = data.redirectUrl;
-  })
-
-  .catch(error => {
-    console.error('There has been a problem with your fetch operation:', error);
-    studentLoginButton.classList.remove('disabled');
-    span.classList.remove('loader');
-    span.innerHTML = 'LOGIN';  
+      event.preventDefault(); 
+  
+      // Hide previous error messages
+      document.querySelector('.studentEmailRequired').classList.add('hidden');
+      document.querySelector('.studentPasswordRequired').classList.add('hidden');
+  
+      let email = document.getElementById('studentEmail').value.trim();
+      let password = document.getElementById('studentPassword').value;
+  
+      let isValid = true;
+  
+      // Validate Email
+      if (!email.includes('@')) {
+          document.querySelector('.studentEmailRequired').classList.remove('hidden');
+          isValid = false;
+      }
+  
+      // Validate Password
+      if (!password) {
+          document.querySelector('.studentPasswordRequired').classList.remove('hidden');
+          isValid = false;
+      }
+  
+      if (!isValid) {
+          return;
+      }
+  
+      let studentLoginButton = document.getElementById('studentLoginButton');
+      studentLoginButton.classList.add('disabled'); 
+      const span = studentLoginButton.querySelector('span');
+      span.innerHTML = '';  
+      span.classList.add('loader');
+  
+      const data = { email, password };
+  
+      fetch('/login-student', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+      .then(response => {
+          if (response.ok) {
+              return response.json(); 
+          }
+          throw new Error('Network response was not ok');
+      })
+      .then(data => {
+          window.location.href = data.redirectUrl;
+      })
+      .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+          studentLoginButton.classList.remove('disabled');
+          span.classList.remove('loader');
+          span.innerHTML = 'LOGIN';  
+      });
   });
-});
-</script>
+  </script>
+  
 
 <%-include('partials/footer')-%>

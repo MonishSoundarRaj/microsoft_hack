@@ -7,46 +7,73 @@
 <div class="tab active-tab" id="instructorTab">INSTRUCTOR</div>
 </div>
 
-<div class="form-container" id="instructorRegisterForm" required>
+<div class="form-container" id="instructorRegisterForm">
   <h2>REGISTER AS INSTRUCTOR</h2>
   <div class="form-field">
     <input type="text" id="instructorName" placeholder="NAME" name="name" required>
+    <p class="alert-email-check hidden instructorNameRequired">Please enter your name</p>
   </div>
   <div class="form-field">
     <input type="text" id="instructorUniversity" placeholder="UNIVERSITY ASSOCIATED" name="university" required>
   </div>
   <div class="form-field">
     <input type="email" id="instructorEmail" placeholder="EMAIL" name="email" required>
+    <p class="alert-email-check hidden instructorEmailRequired">Please enter a valid email</p>
   </div>
   <div class="form-field">
     <input type="text" id="instructorSubject" placeholder="SUBJECT YOU ARE FOCUSSED ON" name="subject" required>
   </div>
   <div class="form-field">
     <input type="password" id="instructorPassword" placeholder="PASSWORD" name="password" required>
+    <p class="alert-email-check hidden instructorPasswordRequired">Please enter a password</p>
   </div>
-  <div>Already have account? <a href="/login-instructor">Login</a></div>
+  <div id="login-registertab">Already have account? <a href="/login-instructor">Login</a></div>
   <div type="submit" id="instructorRegisterButton" class="loginButton"><span class="none">REGISTER</span></div>
 </div>
 </div>
 
 <script>
   document.getElementById('instructorRegisterButton').addEventListener('click', function(event) {
-  event.preventDefault(); 
+    event.preventDefault();
 
+  document.getElementsByClassName("instructorNameRequired")[0].classList.add('hidden');
+  document.getElementsByClassName("instructorEmailRequired")[0].classList.add('hidden');
+  document.getElementsByClassName("instructorPasswordRequired")[0].classList.add('hidden');
+
+  let name = document.getElementById('instructorName').value.trim();
+  let university = document.getElementById('instructorUniversity').value.trim();
+  let email = document.getElementById('instructorEmail').value.trim();
+  let subject = document.getElementById('instructorSubject').value.trim();
+  let password = document.getElementById('instructorPassword').value;
+
+  isValid = true
+  
+  if (!name){
+    document.getElementsByClassName("instructorNameRequired")[0].classList.remove('hidden');
+    isValid = false
+  }
+
+  if (!email.includes('@')) {
+    document.getElementsByClassName("instructorEmailRequired")[0].classList.remove('hidden');
+    isValid = false
+  }
+
+  if (!password) {
+    document.getElementsByClassName("instructorPasswordRequired")[0].classList.remove('hidden');
+    isValid = false
+  }
+
+  if (!isValid) {
+      return;
+  }
+  
   let instructorRegisterButton = document.getElementById('instructorRegisterButton');
   instructorRegisterButton.classList.add('disabled'); 
   const span = instructorRegisterButton.querySelector('span');
   span.innerHTML = '';  
   span.classList.add('loader');
 
-  const data = {
-    name: document.getElementById('instructorName').value,
-    university: document.getElementById('instructorUniversity').value,
-    email: document.getElementById('instructorEmail').value,
-    subject: document.getElementById('instructorSubject').value,
-    password: document.getElementById('instructorPassword').value
-  };
- 
+  const data = { name, university, email, subject, password };
 
   fetch('/register-instructor', {
     method: 'POST',

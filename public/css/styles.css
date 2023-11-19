@@ -269,6 +269,8 @@
     background-color: #eee;
     display: inline-block;
     transition: background-color 0.8s;
+    margin-top: 5%;
+    box-sizing: border-box;
 }
 
 .tab a{
@@ -291,25 +293,25 @@
 
 .tab-container div{
     color: black;
-    font-size: 30px;
+    font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 1;
 }
 
 .tab-container div:nth-child(1){
     border-radius: 10px 0 0 10px;
-    padding: 20px 85px;
+    padding: 15px 85px;
 }
 
 .tab-container div:nth-child(2){
     border-radius: 0 10px 10px 0;
-    padding: 20px 60px;
+    padding: 15px 60px;
 }
 
 .form-container-main{
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -326,14 +328,17 @@
     display: flex;
     padding: 50px 0;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
-    gap: 20px;
+    margin-bottom: 3%;
 }
 
 .form-field { 
-    margin-bottom: 10px; 
     width: 50%;
+}
+
+.login-info{
+    margin-bottom: 15px;
 }
 
 .form-field input{
@@ -353,6 +358,10 @@
     border: none;
     outline: none;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.alert-email-check{
+    color: red;
 }
 
 .form-field:nth-child(odd) input{
@@ -456,4 +465,8 @@
 .disabled {
     opacity: 0.5; 
     pointer-events: none; 
+}
+
+.custom-alert{
+    height: 20px;
 }
