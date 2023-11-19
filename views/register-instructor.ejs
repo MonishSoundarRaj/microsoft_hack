@@ -1,0 +1,76 @@
+<%-include('partials/header')-%>
+
+<div class="form-container-main">
+
+<div class="tab-container">
+<div class="tab" id="studentTab"><a href="/register-student">STUDENT</a></div>
+<div class="tab active-tab" id="instructorTab">INSTRUCTOR</div>
+</div>
+
+<div class="form-container" id="instructorRegisterForm" required>
+  <h2>REGISTER AS INSTRUCTOR</h2>
+  <div class="form-field">
+    <input type="text" id="instructorName" placeholder="NAME" name="name" required>
+  </div>
+  <div class="form-field">
+    <input type="text" id="instructorUniversity" placeholder="UNIVERSITY ASSOCIATED" name="university" required>
+  </div>
+  <div class="form-field">
+    <input type="email" id="instructorEmail" placeholder="EMAIL" name="email" required>
+  </div>
+  <div class="form-field">
+    <input type="text" id="instructorSubject" placeholder="SUBJECT YOU ARE FOCUSSED ON" name="subject" required>
+  </div>
+  <div class="form-field">
+    <input type="password" id="instructorPassword" placeholder="PASSWORD" name="password" required>
+  </div>
+  <div>Already have account? <a href="/login-instructor">Login</a></div>
+  <div type="submit" id="instructorRegisterButton" class="loginButton"><span class="none">REGISTER</span></div>
+</div>
+</div>
+
+<script>
+  document.getElementById('instructorRegisterButton').addEventListener('click', function(event) {
+  event.preventDefault(); 
+
+  let instructorRegisterButton = document.getElementById('instructorRegisterButton');
+  instructorRegisterButton.classList.add('disabled'); 
+  const span = instructorRegisterButton.querySelector('span');
+  span.innerHTML = '';  
+  span.classList.add('loader');
+
+  const data = {
+    name: document.getElementById('instructorName').value,
+    university: document.getElementById('instructorUniversity').value,
+    email: document.getElementById('instructorEmail').value,
+    subject: document.getElementById('instructorSubject').value,
+    password: document.getElementById('instructorPassword').value
+  };
+ 
+
+  fetch('/register-instructor', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json(); 
+    }
+    throw new Error('Network response was not ok');
+  })
+  .then(data => {
+
+    window.location.href = data.redirectUrl;
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+    instructorRegisterButton.classList.remove('disabled');
+    span.classList.remove('loader');
+    span.innerHTML = 'REGISTER';  
+  });
+});
+</script>
+<%-include('partials/footer')-%>

@@ -1,0 +1,72 @@
+<%-include('partials/header')-%>
+
+<div class="form-container-main">
+
+<div class="tab-container">
+<div class="tab active-tab" id="studentTab">STUDENT</div>
+<div class="tab" id="instructorTab"><a href="/register-instructor">INSTRUCTOR</a></div>
+</div>
+
+<div class="form-container" id="studentRegisterForm">
+  <h2>REGISTER AS STUDENT</h2>
+  <div class="form-field">
+    <input type="text", id="studentName", placeholder="NAME" name="name" required>
+  </div>
+  <div class="form-field">
+    <input type="text" id="studentUniversity" placeholder="UNIVERSITY" name="university" required>
+  </div>
+  <div class="form-field">
+    <input type="email" id="studentEmail" placeholder="EMAIL" name="email" required>
+  </div>
+  <div class="form-field">
+    <input type="password" id="studentPassword" placeholder="PASSWORD" name="password" required>
+  </div>
+  <div>Already have account? <a href="/login-student">Login</a></div>
+  <div type="submit" id="studentRegisterButton" class="loginButton"><span class="none">REGISTER</span></div>
+</div>
+</div>
+
+<script>
+  document.getElementById('studentRegisterButton').addEventListener('click', function(event) {
+  event.preventDefault(); 
+
+  let studentRegisterButton = document.getElementById('studentRegisterButton');
+  studentRegisterButton.classList.add('disabled'); 
+  const span = studentRegisterButton.querySelector('span');
+  span.innerHTML = '';  
+  span.classList.add('loader');
+
+  const data = {
+    name: document.getElementById('studentName').value,
+    university: document.getElementById('studentUniversity').value,
+    email: document.getElementById('studentEmail').value,
+    password: document.getElementById('studentPassword').value
+  };
+
+  fetch('/register-student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json(); 
+    }
+    throw new Error('Network response was not ok');
+  })
+  .then(data => {
+    window.location.href = data.redirectUrl;
+  })
+
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+    studentRegisterButton.classList.remove('disabled');
+    span.classList.remove('loader');
+    span.innerHTML = 'REGISTER';  
+  });
+});
+</script>
+
+<%-include('partials/footer')-%>

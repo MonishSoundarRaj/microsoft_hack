@@ -1,0 +1,83 @@
+<%-include('partials/header')-%>
+
+<div class="form-container-main">
+
+<div class="tab-container">
+<div class="tab active-tab" id="studentTab">STUDENT</div>
+<div class="tab" id="instructorTab"><a href="/login-instructor">INSTRUCTOR</a></div>
+</div>
+
+<div class="form-container" id="studentLoginForm">
+  <h2>STUDENT LOGIN</h2>
+  <div class="form-field">
+    <input type="email" id="studentEmail" placeholder="EMAIL" name="email" required>
+  </div>
+  <div class="form-field">
+    <input type="password" id="studentPassword" placeholder="PASSWORD" name="password" required>
+  </div>
+  <div>Need help logging in? <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Reset your password</a></div>
+  <div>Don't have a account? <a href="/register-student">Create one</a></div>
+  <div type="submit" id="studentLoginButton" class="loginButton"><span class="none">LOGIN</span></div>
+</div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Password Reset Cannot Be Processed Now</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>As this is still a test application password reset functionality is not active</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('studentLoginButton').addEventListener('click', function(event) {
+  event.preventDefault(); 
+
+  let studentLoginButton = document.getElementById('studentLoginButton');
+  studentLoginButton.classList.add('disabled'); 
+  const span = studentLoginButton.querySelector('span');
+  span.innerHTML = '';  
+  span.classList.add('loader');
+
+  const data = {
+    email: document.getElementById('studentEmail').value,
+    password: document.getElementById('studentPassword').value
+  };
+
+  fetch('/login-student', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json(); 
+    }
+    throw new Error('Network response was not ok');
+  })
+  .then(data => {
+    
+    window.location.href = data.redirectUrl;
+  })
+
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+    studentLoginButton.classList.remove('disabled');
+    span.classList.remove('loader');
+    span.innerHTML = 'LOGIN';  
+  });
+});
+</script>
+
+<%-include('partials/footer')-%>

@@ -265,11 +265,15 @@
 /* register */
 
 .tab { 
-    cursor: pointer;
     padding: 10px;
     background-color: #eee;
     display: inline-block;
     transition: background-color 0.8s;
+}
+
+.tab a{
+    text-decoration: none;
+    color: black;
 }
 
 .active-tab { 
@@ -359,14 +363,19 @@
     background-color: #D8D8D8;
 }
 
-.form-container button{
+.loginButton{
     border: none;
     border-radius: 20px;
+    width: 150px;
+    height: 60px;
     color: black;
     background-color: rgba(200, 248, 8, 0.8);
     padding: 15px 40px;
     font-size: 25px;
     transition: background-color 0.6s, color 0.6s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-container button:hover{
@@ -410,3 +419,41 @@
     }
 }
 
+/* loader */
+.loader {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    position: relative;
+  }
+  .loader::after,
+  .loader::before {
+    content: '';  
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: black;
+    position: absolute;
+    animation: animloader 2s linear infinite;
+  }
+
+.loader::after {
+    animation-delay: 1s;
+  }
+  
+  @keyframes animloader {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+}
+
+.disabled {
+    opacity: 0.5; 
+    pointer-events: none; 
+}
