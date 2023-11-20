@@ -32,8 +32,6 @@
 <script>
   document.getElementById('studentRegisterButton').addEventListener('click', function(event) {
       event.preventDefault(); 
-  
-
       document.querySelector('.studentNameRequired').classList.add('hidden');
       document.querySelector('.studentEmailRequired').classList.add('hidden');
       document.querySelector('.studentPasswordRequired').classList.add('hidden');
@@ -44,8 +42,7 @@
       let password = document.getElementById('studentPassword').value;
   
       let isValid = true;
-  
-  
+
       if (!name) {
           document.querySelector('.studentNameRequired').classList.remove('hidden');
           isValid = false;

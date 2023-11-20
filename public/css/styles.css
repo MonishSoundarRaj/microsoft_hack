@@ -470,3 +470,19 @@
 .custom-alert{
     height: 20px;
 }
+
+/* modal */
+.custom-modal-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.custom-modal-button a{
+    text-decoration: none;
+    color: white;
+}
+
+.wrongPasswordAlert{
+    margin-top: 10px;
+    font-weight: bold;
+}

@@ -5,7 +5,8 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const path = require("path");
 const favicon = require('serve-favicon')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const { Console } = require("console");
 
 const app = express();
 
@@ -39,7 +40,6 @@ let studentUsers = []
 let instructorUsers = []
 
 app.post("/register-student", async (req, res) => {
-    console.log(req.body)
     try {
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -59,11 +59,13 @@ app.post("/register-student", async (req, res) => {
 app.post("/login-student", async (req, res) => {
     const user = studentUsers.find(user => user.email === req.body.email);
     if (user == null){
-        return res.status(400).send('Cannot find user')
+        return res.status(400).json({ notFound: "User Not Found" });
     }
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
             res.json({ redirectUrl: '/dashboard-student' });
+        }else{
+            res.status(401).json({incorrectPassword: "Incorrect password"})
         }
     }catch{
         res.status(500).json({ error: "Internal Server Error" });
@@ -71,7 +73,6 @@ app.post("/login-student", async (req, res) => {
 })
 
 app.post("/register-instructor", async (req, res) => {
-    console.log(req.body)
     try{
         const iSalt = await bcrypt.genSalt();
         const iHashPassword = await bcrypt.hash(req.body.password, iSalt)
@@ -92,11 +93,13 @@ app.post("/register-instructor", async (req, res) => {
 app.post("/login-instructor", async(req, res) => {
     const user = instructorUsers.find(user => user.email === req.body.email);
     if (user == null){
-        return res.status(400).send('Cannot find user')
+        return res.status(400).json({ notFound: "User Not Found" });
     }
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
             res.json({ redirectUrl: '/dashboard-instructor' });
+        }else{
+            res.status(401).json({incorrectPassword: "Incorrect password"})
         }
     }catch{
         res.status(500).json({ error: "Internal Server Error" });
