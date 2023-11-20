@@ -19,7 +19,7 @@
 }
 
 .navbar-login{
-    border-radius: 20px;
+    border-radius: 10px;
     color: black;
     background-color: #DEE21C;
     padding: 10px 20px;
@@ -492,3 +492,21 @@
     font-weight: bold;
 }
 
+/* Dashboard-student */
+.custom-sidebar-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hr-dashboard{
+    border: 2px solid red;
+    border-radius: 2px;
+}
+
+.custom-menu-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}

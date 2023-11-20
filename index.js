@@ -55,7 +55,7 @@ app.post("/register-student", async (req, res) => {
         studentUsers.push(sUser)
         const studentRegisterUsername = req.body.email
         const studentUser = {name: studentRegisterUsername} 
-        const accessToken = jwt.sign(studentUser, process.env.ACCESS_TOKEN_SECRET)
+        const accessToken = jwt.sign(studentUser, process.env.STUDENT_ACCESS_TOKEN_SECRET)
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             // change this in production to true
@@ -79,7 +79,7 @@ app.post("/login-student", async (req, res) => {
         if (await bcrypt.compare(req.body.password, user.password)){
             const username = req.body.email
             const user = {name: username}
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+            const accessToken = jwt.sign(user, process.env.STUDENT_ACCESS_TOKEN_SECRET)
             res.cookie('accessToken', accessToken, {
                 httpOnly: true,
                 // change this in production to true
@@ -110,7 +110,7 @@ app.post("/register-instructor", async (req, res) => {
         instructorUsers.push(iUser)
         const instructorRegisterUsername = req.body.email
         const user = {name: instructorRegisterUsername} 
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        const accessToken = jwt.sign(user, process.env.INSTRUCTOR_ACCESS_TOKEN_SECRET)
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             // change this in production to true
@@ -133,7 +133,7 @@ app.post("/login-instructor", async(req, res) => {
         if (await bcrypt.compare(req.body.password, user.password)){
             const username = req.body.email
             const user = {name: username}
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+            const accessToken = jwt.sign(user, process.env.INSTRUCTOR_ACCESS_TOKEN_SECRET)
             res.cookie('accessToken', accessToken, {
                 httpOnly: true,
                 // change this in production to true
@@ -151,23 +151,34 @@ app.post("/login-instructor", async(req, res) => {
     
 })
 
-app.get('/dashboard-student', authenticationToken, (req,res) => {
+app.get('/dashboard-student', studentAuthenticationToken, (req,res) => {
     res.render('dashboard-student')
 })
 
-app.get('/dashboard-instructor', authenticationToken, (req,res) => {
+app.get('/dashboard-instructor', instructorAuthenticationToken, (req,res) => {
     res.render('dashboard-instructor')
 })
 
-function authenticationToken(req, res, next) {
+function studentAuthenticationToken(req, res, next) {
     const token = req.cookies.accessToken
     if (token == null) return res.status(401).json({notAuthorized: 'Not Authorized'})
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.STUDENT_ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.status(403).json({invalidToken: 'Token is invalid'})
     req.user = user
     next()
     })
 }
+
+function instructorAuthenticationToken(req, res, next) {
+    const token = req.cookies.accessToken
+    if (token == null) return res.status(401).json({notAuthorized: 'Not Authorized'})
+    jwt.verify(token, process.env.INSTRUCTOR_ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403).json({invalidToken: 'Token is invalid'})
+    req.user = user
+    next()
+    })
+}
+
 
 app.listen(process.env.PORT||3000, () => {
     console.log("server is up and running in PORT 3000")
