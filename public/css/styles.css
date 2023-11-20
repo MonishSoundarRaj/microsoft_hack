@@ -319,7 +319,7 @@
 }
 
 .form-container{ 
-    width: 70%;
+    width: 52%;
     min-height: 80vh;
     padding: 20px; 
     background: rgba(252,252,252, 0.7);
@@ -331,6 +331,11 @@
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 3%;
+}
+
+.login-form-container{
+    min-height: 70vh;
+
 }
 
 .form-field { 
@@ -486,3 +491,4 @@
     margin-top: 10px;
     font-weight: bold;
 }
+

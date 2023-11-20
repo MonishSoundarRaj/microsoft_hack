@@ -1,3 +1,5 @@
+require('dotenv').config()
+const cookieParser = require('cookie-parser');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -6,10 +8,11 @@ const _ = require("lodash");
 const path = require("path");
 const favicon = require('serve-favicon')
 const bcrypt = require('bcrypt');
-const { Console } = require("console");
+const jwt = require('jsonwebtoken')
 
 const app = express();
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs');
@@ -50,7 +53,18 @@ app.post("/register-student", async (req, res) => {
             "password": hashPassword
         }
         studentUsers.push(sUser)
-        res.json({ redirectUrl: '/dashboard-student' });
+        const studentRegisterUsername = req.body.email
+        const studentUser = {name: studentRegisterUsername} 
+        const accessToken = jwt.sign(studentUser, process.env.ACCESS_TOKEN_SECRET)
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            // change this in production to true
+            secure: false, 
+            sameSite: 'strict', 
+            maxAge: 24 * 60 * 60 * 1000 
+        });
+        res.json({message: 'Registration Successful'})
+        
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -63,7 +77,17 @@ app.post("/login-student", async (req, res) => {
     }
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
-            res.json({ redirectUrl: '/dashboard-student' });
+            const username = req.body.email
+            const user = {name: username}
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+            res.cookie('accessToken', accessToken, {
+                httpOnly: true,
+                // change this in production to true
+                secure: false, 
+                sameSite: 'strict', 
+                maxAge: 24 * 60 * 60 * 1000 
+            });
+            res.json({message: 'Login Successful'})
         }else{
             res.status(401).json({incorrectPassword: "Incorrect password"})
         }
@@ -84,7 +108,17 @@ app.post("/register-instructor", async (req, res) => {
             "password": iHashPassword
         }
         instructorUsers.push(iUser)
-        res.json({ redirectUrl: '/dashboard-instructor' });
+        const instructorRegisterUsername = req.body.email
+        const user = {name: instructorRegisterUsername} 
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            // change this in production to true
+            secure: false, 
+            sameSite: 'strict', 
+            maxAge: 24 * 60 * 60 * 1000 
+        });
+        res.json({message: 'Registration Successful'})
     }catch (error){
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -97,23 +131,43 @@ app.post("/login-instructor", async(req, res) => {
     }
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
-            res.json({ redirectUrl: '/dashboard-instructor' });
+            const username = req.body.email
+            const user = {name: username}
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+            res.cookie('accessToken', accessToken, {
+                httpOnly: true,
+                // change this in production to true
+                secure: false, 
+                sameSite: 'strict', 
+                maxAge: 24 * 60 * 60 * 1000 
+            });
+            res.json({message: 'Login Successful'})
         }else{
             res.status(401).json({incorrectPassword: "Incorrect password"})
         }
     }catch{
         res.status(500).json({ error: "Internal Server Error" });
-    }
+    }    
     
 })
 
-app.get('/dashboard-student', (req,res) => {
+app.get('/dashboard-student', authenticationToken, (req,res) => {
     res.render('dashboard-student')
 })
 
-app.get('/dashboard-instructor', (req,res) => {
+app.get('/dashboard-instructor', authenticationToken, (req,res) => {
     res.render('dashboard-instructor')
 })
+
+function authenticationToken(req, res, next) {
+    const token = req.cookies.accessToken
+    if (token == null) return res.status(401).json({notAuthorized: 'Not Authorized'})
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(403).json({invalidToken: 'Token is invalid'})
+    req.user = user
+    next()
+    })
+}
 
 app.listen(process.env.PORT||3000, () => {
     console.log("server is up and running in PORT 3000")

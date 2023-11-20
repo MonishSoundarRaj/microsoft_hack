@@ -7,7 +7,7 @@
 <div class="tab" id="instructorTab"><a href="/login-instructor">INSTRUCTOR</a></div>
 </div>
 
-<div class="form-container" id="studentLoginForm">
+<div class="form-container login-form-container" id="studentLoginForm">
   <h2>STUDENT LOGIN</h2>
   <div class="form-field">
     <input type="email" id="studentEmail" placeholder="EMAIL" name="email" required>
@@ -117,7 +117,7 @@
         throw new Error('Network response was not ok');
     })
     .then(data => {
-        window.location.href = data.redirectUrl;
+        window.location.href = '/dashboard-student';
     })
     .catch(error => {
         if (error.message === 'User Not Found') {
@@ -133,8 +133,6 @@
         span.innerHTML = 'LOGIN';  
     });
 });
-
 </script>
-  
 
 <%-include('partials/footer')-%>
