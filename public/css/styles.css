@@ -918,7 +918,53 @@ margin: 0 0 20px 0;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
+/* Chapter-quizscores */
 
-
-
-
+/* chatbot */
+.chat-container {
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    margin: auto;
+    overflow: auto;
+    max-height: 500px; 
+  }
+  
+  .message {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+  }
+  
+  .received {
+    background-color: #ffffff;
+    align-self: flex-start;
+  }
+  
+  .sent {
+    background-color: #9bcaff;
+    align-self: flex-end;
+    text-align: right;
+  }
+  
+  .input-area {
+    display: flex;
+    padding: 10px;
+  }
+  
+  .input-area input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-right: 10px;
+  }
+  
+  .input-area button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: blue;
+    color: white;
+  }
+  

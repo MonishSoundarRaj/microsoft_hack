@@ -187,6 +187,10 @@ app.get('/chapterwise-instructor', (req, res) => {
     res.render('chapterwise-instructor')
 })
 
+app.get('/chatbot', (req, res) => {
+ res.render('chatbot')
+})
+
 app.listen(process.env.PORT||3000, () => {
     console.log("server is up and running in PORT 3000")
 })
