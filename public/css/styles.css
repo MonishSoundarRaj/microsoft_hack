@@ -497,6 +497,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 15%;
+    height: 100vh;
+    position: fixed;
+}
+
+.dashboard-content-student{
+    margin: 10px 0;
 }
 
 .hr-dashboard{
@@ -508,5 +515,410 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 5px 20px;
+    background-color: rgb(182, 166, 166);
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    transition: box-shadow 0.5s;
+}
+
+.custom-menu-item:hover{
+    box-shadow: 0 5px 10px rgba(219, 215, 215, 0.5);
+}
+
+.custom-menu-item-selected {
+    background-color: #007bff; 
+    color: #ffffff; 
+    border-left: 4px solid #0056b3; 
+    text-shadow: 0 1px 0 #000; 
+    box-shadow: inset 0 -3px 0 0 #0056b3; 
+}
+
+.book-add-card{
+    width: 12rem;
+    height: 16rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(182, 166, 166);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.5s;
+    flex-direction: column;
     gap: 10px;
 }
+
+.book-add-card:hover{
+    transform: scale(1.03)
+}
+
+.custom-modal-footer-add-book{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.custom-modal-footer-add-book button:nth-child(2){
+    background-color: #5039DD;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    transition: background-color 0.5s, color 0.5s;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    outline: none;
+}
+
+.custom-close-button{
+    padding: 10px 40px;
+    background-color: #5A6268;
+    color: white;
+    border: none;
+    outline: none;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.custom-close-button:hover{
+    background-color: #73838f;
+    color: rgb(248, 238, 238);
+}
+
+
+.custom-modal-footer-add-book button:nth-child(2):hover{
+    background-color: rgba(80, 57, 221, 0.8);
+    color: rgb(248, 238, 238);
+}
+
+.custom-modal-body-add-book{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.custom-modal-body-add-book input{
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-color: #F0ECEC;
+    padding: 20px 15px;
+    width: 85%;
+    transition: box-shadow 0.5s;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.custom-title-modal{
+text-align: center;
+font-family: 'Montserrat', sans-serif;
+font-weight: bold;
+}
+
+.custom-modal-body-add-book input:hover{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.custom-modal-body-add-book input:focus{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.custom-modal-header{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.custom-modal-bookcode-container{
+    padding: 15px 10px;
+}
+
+.student-book-add-container{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.style-other-tools{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.dashboard-content-top{
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 10px 20px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-content-bottom{
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 10px 20px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+.book-display-card{
+    width: 12rem;
+    height: 16rem;
+}
+
+.custom-content-main{
+    margin-left: 15%;
+}
+
+.book-display-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: red;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.5s;
+}
+
+.book-display-card:hover{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.book-display-card-image{
+    max-width: 50%; 
+    width: 100%; 
+}
+
+.book-display-card-image img {
+    width: 100%; 
+    height: auto; 
+}
+
+.book-display-card-text{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.free-book-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+}
+
+.book-display-card-text h6{
+    font-weight: 478;
+}
+
+/* instructor dashboard */
+
+.dashboard-content-top-instructor{
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 10px 20px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    min-height: 95vh;
+}
+
+.instructor-modal-input{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+}
+
+.select-box{
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-color: #F0ECEC;
+    padding: 20px 15px;
+    width: 85%;
+    transition: box-shadow 0.5s;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    margin: 40px 0 20px 0;
+}
+
+.select-box:hover{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.select-box:focus{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.select-box option{
+    padding-top: 2px;
+}
+
+.custom-height-modal{
+    height: 500px;
+}
+
+.modal-instructor-footer{
+margin: 0 0 20px 0;
+}
+
+/* .close-accordion-arrow {
+    float: right; 
+    cursor: pointer; 
+} */
+
+/* chapterwise */
+.chapterwise-container{
+    width: 100%;
+    padding: 1.6rem;
+}
+
+.chapterwise-goback{
+    display: flex;
+}
+.chapterwise-goback a{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+}
+
+.chapterwise-goback img{
+    width: 32px;
+    height: 32px;
+}
+
+.chapterwise-book-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem; 
+    margin-top: 2rem; 
+    margin-left: 2rem;
+}
+
+.chapterwise-book-image img {
+    width: 7rem; 
+    height: auto; 
+}
+
+
+/* download button */
+.chapterwise-chapter-container{
+    width: 100%;
+    margin-top: 3%;  
+}
+
+.accordion-custom{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;  
+}
+
+.acc-item-bar{
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 15px 30px;
+}
+
+.acc-item-bar-active{
+    border-radius: 10px 10px 0 0;
+}
+
+
+.acc-item-buttons{
+    display: flex;
+    gap: 20px;
+}
+
+.acc-item a{
+    text-decoration: none;
+    color: black;
+}
+
+.view-grades-button{
+    text-decoration: none;
+    color: black;
+    padding: 10px 12px;
+    background: red;
+    border-radius: 10px;
+    transition: box-shadow 0.5s;
+}
+
+.start-learning-button-chapterwise{
+    text-decoration: none;
+    color: black;
+    padding: 10px 12px;
+    background: green;
+    border-radius: 10px;
+    transition: box-shadow 0.5s;
+}
+
+.start-learning-button-chapterwise:hover{
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.view-grades-button:hover{
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.acc-item-content{
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 10px 10px;
+}
+
+.chapterwise-accordin-summary-container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.chapterwise-accordin-summary-container-learn{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.chapterwise-accordin-summary-container-quiz-score{
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.chapterwise-accordin-summary-container-notes-download{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 8rem;
+}
+
+.download-chapterwise{
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-color: red;
+    padding: 10px 12px;
+    transition: box-shadow 0.5s;
+}
+
+.download-chapterwise:hover{
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+

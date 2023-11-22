@@ -1,2 +1,122 @@
 <%-include('partials/header')-%>
+<div class="chapterwise-container">
+    <div class="chapterwise-goback">
+        <a href="#"><img src="/images/go-back.png" alt="go-back"> Return to Dashboard</a>
+    </div>
+    <div class="chapterwise-book-container">
+        <div class="chapterwise-book-image">
+            <img src="/images/sample-book-cover.png" alt="Book Cover Image">
+        </div>
+        <div class="chapterwise-book-content">
+            <h5><strong>Book Title:</strong> Once up on a time in Hollywood</h5>
+            <h5><strong>Course and Section</strong> ITSC - 2010 - 002</h5>
+        </div>
+    </div>
+    <div class="chapterwise-chapter-container">
+        <div class="accordion-custom">
+            <div class="acc-item">
+                <div class="acc-item-bar">
+                    <div>
+                        <h3>Chapter 1 - Basics of Accounting</h3>
+                    </div>
+                    <div class="acc-item-buttons">
+                      <a href="#" class="toggle-content view-grades-button" data-target="#content-chapter-1">
+                        VIEW SUMMARY AND GRADE
+                        <i class="bi bi-arrow-down-circle-fill arrow-icon"></i>
+                      </a>
+                      <a href="" class="start-learning-button-chapterwise">START LEARNING <i class="bi bi-arrow-right-circle-fill"></i></a>
+                    </div>
+                </div>
+                <div id="content-chapter-1" class="acc-item-content" style="display: none;">
+                  <div class="chapterwise-accordin-summary-container">
+                    <div class="chapterwise-accordin-summary-container-learn">
+                        <h5>What you learnt today?</h5>
+                        <hr>
+                        <ul class="learnt-list">
+                            <li>Financial Accounting Basics</li>
+                            <li>Magerinal Accounting Basics</li>
+                            <li>Financial formulas</li>
+                        </ul>
+                    </div>
+                    <div class="chapterwise-accordin-summary-container-quiz-score">
+                        <h5>Knowledge Check Score</h5>
+                        <h1>56%</h1>
+                    </div>
+                    <div class="chapterwise-accordin-summary-container-notes-download">
+                        <h5>Download Chapter Notes</h5>
+                      
+                        <a href="#" class="download-chapterwise" download>Download <i class="bi bi-download"></i></a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="acc-item">
+                <div class="acc-item-bar">
+                    <div>
+                        <h3>Chapter 2 - Advanced Accounting</h3>
+                    </div>
+                    <div class="acc-item-buttons">
+                        <a href="#" class="toggle-content view-grades-button" data-target="#content-chapter-2">
+                            VIEW SUMMARY AND GRADE
+                            <i class="bi bi-arrow-down-circle-fill arrow-icon"></i>
+                        </a>
+                        <a href="" class="start-learning-button-chapterwise">START LEARNING <i class="bi bi-arrow-right-circle-fill"></i></a>
+                    </div>
+                </div>
+                <div id="content-chapter-2" class="acc-item-content" style="display: none;">
+                    <div class="chapterwise-accordin-summary-container">
+                        <div class="chapterwise-accordin-summary-container-learn">
+                            <h5>What you learnt today?</h5>
+                            <ul class="learnt-list">
+                                <li>Advanced Accounting Principles</li>
+                                <li>Financial Statements Analysis</li>
+                                <li>Cost Accounting Techniques</li>
+                            </ul>
+                        </div>
+                        <div class="chapterwise-accordin-summary-container-quiz-score">
+                            <h5>Knowledge Check Score</h5>
+                            <h1>72%</h1>
+                        </div>
+                        <div class="chapterwise-accordin-summary-container-notes-download">
+                            <h5>Download Chapter Notes</h5>
+                            <a href="#" class="download-chapterwise" download>Download <i class="bi bi-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleLinks = document.querySelectorAll('.toggle-content');
+
+  toggleLinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const targetId = this.getAttribute('data-target');
+      const targetContent = document.querySelector(targetId);
+      const arrowIcon = this.querySelector('.arrow-icon');
+      const accItemBar = this.closest('.acc-item').querySelector('.acc-item-bar');
+
+      if (targetContent.style.display === 'none') {
+        targetContent.style.display = 'block';
+        arrowIcon.classList.remove('bi-arrow-down-circle-fill');
+        arrowIcon.classList.add('bi-arrow-up-circle-fill');
+        accItemBar.classList.add('acc-item-bar-active'); // Add the class
+      } else {
+        targetContent.style.display = 'none';
+        arrowIcon.classList.add('bi-arrow-down-circle-fill');
+        arrowIcon.classList.remove('bi-arrow-up-circle-fill');
+        accItemBar.classList.remove('acc-item-bar-active'); // Remove the class
+      }
+    });
+  });
+});
+
+
+</script>
 <%-include('partials/footer')-%>

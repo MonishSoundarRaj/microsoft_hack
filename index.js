@@ -155,7 +155,7 @@ app.get('/dashboard-student', studentAuthenticationToken, (req,res) => {
     res.render('dashboard-student')
 })
 
-app.get('/dashboard-instructor', instructorAuthenticationToken, (req,res) => {
+app.get('/dashboard-instructor', (req,res) => {
     res.render('dashboard-instructor')
 })
 
@@ -179,6 +179,13 @@ function instructorAuthenticationToken(req, res, next) {
     })
 }
 
+app.get('/chapterwise-student', (req, res) => {
+    res.render('chapterwise-student')
+})
+
+app.get('/chapterwise-instructor', (req, res) => {
+    res.render('chapterwise-student')
+})
 
 app.listen(process.env.PORT||3000, () => {
     console.log("server is up and running in PORT 3000")

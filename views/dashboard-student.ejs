@@ -1,23 +1,22 @@
 <%-include('partials/header')-%>
 
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-auto bg-dark sticky-top custom-sidebar-main">
+        <div class="col-sm-auto sticky-top bg-dark custom-sidebar-main">
             <div class="d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-center sticky-top">
-
                 <a href="/" class="d-block p-3 link-light text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
                     <i class="bi-bootstrap fs-1"></i>
                 </a>
-           
-                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-100 px-3 align-items-center">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link py-3 px-2 text-white" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                            <div class="custom-menu-item"><i class="bi-speedometer2 fs-1"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span></div>
+                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-center w-100 align-items-center">
+                    <li class="nav-item w-100" >
+                        <a href="#" class="nav-link py-3 px-2 text-white w-100" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                            <div class="custom-menu-item w-100 custom-menu-item-selected" id="studentDashBoard"><i class="bi-speedometer2 fs-1"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span></div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link py-3 px-2 text-white" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Calendar">
-                            <div class="custom-menu-item"><i class="bi-tools fs-1"></i><span class="ms-1 d-none d-sm-inline">Other Tools</span></div>
+                    <li class="nav-item w-100">
+                        <a href="#" class="nav-link py-3 px-2 text-white w-100" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Other Tools">
+                            <div class="custom-menu-item w-100" id="studentOtherTools"><i class="bi-tools fs-1"></i><span class="ms-1 d-none d-sm-inline">Other Tools</span></div>
                         </a>
                     </li>
                 </ul>
@@ -38,22 +37,83 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm p-3 min-vh-100 bg-light">
-            <div>
-                <h2>Books</h2>
-                <hr />
-                <div class="book-add-card">
-                    <i class="bi-journal-plus fs-1"></i>
-                </div>
-            </div>
-            <div>
-               <hr>
-               <div>
-
+        <div class="col-sm min-vh-100 custom-content-main">
+           <div class="dashboard-content-student">
+               <div class="dashboard-content-top">
+                    <h2>Books</h2>
+                    <hr />
+                    <div class="student-book-add-container">
+                        <div class="book-add-card" data-bs-toggle="modal" data-bs-target="#addBookStudent">
+                            <i class="bi-journal-plus fs-1"></i>
+                            <p>ADD BOOK</p>
+                        </div>
+                    </div>
                </div>
-            </div>
+               <div class="dashboard-content-bottom">
+                    <h2>Free Books To Read</h2>
+                    <hr>
+                    <div class="free-book-container">
+                        <div class="book-display-card">
+                            <div class="book-display-card-image">
+                                <img src="/images/sample-book-cover.png" alt="book-cover">
+                            </div>
+                            <div class="book-display-card-text">
+                                <h6><strong>Title:</strong> A Million To One</h6>
+                                <h6><strong>Sub:</strong> Accounting</h6>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+           </div>
+           <div class="other-tools-content hidden">
+                <img src="images/coming-soon.png" alt="Coming Soon Image">
+           </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="addBookStudent" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="addBookStudentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-bookcode-container">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div>
+            <h1 class="modal-title fs-5 custom-title-modal" id="addBookStudentLabel">ENTER CODE TO ADD BOOK</h1>
+        </div>
+        <div class="modal-body custom-modal-body-add-book">
+                <input type="text" id="bookCode" placeholder="Enter 12 - Digit Code (Ask your instructor)" name="bookCode" required>
+        </div>
+        <div class="custom-modal-footer-add-book">
+          <button type="button" class="btn custom-close-button" data-bs-dismiss="modal">CLOSE</button>
+          <button type="button" class="btn" id="addBookStudentModalButton">ADD BOOK</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<script>
+    var studentDashboardButton = document.getElementById('studentDashBoard');
+    var studentOtherToolsButton = document.getElementById('studentOtherTools');
+
+    studentDashboardButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        studentOtherToolsButton.classList.remove('custom-menu-item-selected');
+        studentDashboardButton.classList.add('custom-menu-item-selected');
+        document.querySelector('.dashboard-content-student').classList.remove('hidden');
+        document.querySelector('.other-tools-content').classList.remove('style-other-tools');
+        document.querySelector('.other-tools-content').classList.add('hidden');
+    });
+
+    studentOtherToolsButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        studentDashboardButton.classList.remove('custom-menu-item-selected');
+        studentOtherToolsButton.classList.add('custom-menu-item-selected');
+        document.querySelector('.dashboard-content-student').classList.add('hidden');
+        document.querySelector('.other-tools-content').classList.remove('hidden');
+        document.querySelector('.other-tools-content').classList.add('style-other-tools');
+    });
+
+</script>
 <%-include('partials/footer')-%>
