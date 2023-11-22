@@ -184,7 +184,7 @@ app.get('/chapterwise-student', (req, res) => {
 })
 
 app.get('/chapterwise-instructor', (req, res) => {
-    res.render('chapterwise-student')
+    res.render('chapterwise-instructor')
 })
 
 app.listen(process.env.PORT||3000, () => {
