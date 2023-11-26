@@ -2,82 +2,108 @@
 
 <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 
-<div class="container">
-  <div>
-    <div>
-        <h3>DASHBOARD</h3>
-    </div>
-    <div class="toggle-menu">
-        <button id="toggleButton">☰</button>
-        <div id="toggleOptions" class="toggle-options">
-          <label><input type="checkbox" id="togglePdf" checked /> PDF Viewer</label>
-          <label><input type="checkbox" id="toggleChat" checked /> Chat Area</label>
+<div class="main-chatbot-container-1">
+  <div class="chatbot-container">
+    <div class="chatbot-container-nav">
+      <div>
+        <a class="go-back-option"
+          ><i class="bi bi-backspace goback-custom"></i> DASHBOARD</a
+        >
+      </div>
+      <div class="toggle-menu">
+        <a id="toggleButton"><i class="bi bi-layout-wtf"></i></a>
+        <div id="toggleOptions" class="toggle-options hidden">
+          <h6>ADJUST LAYOUT</h6>
           <label
-            ><input type="checkbox" id="toggleNotes" checked /> Notes Area</label
+            ><input type="checkbox" id="togglePdf" checked /> PDF Viewer</label
+          >
+          <label
+            ><input type="checkbox" id="toggleChat" checked /> Chat Area</label
+          >
+          <label
+            ><input type="checkbox" id="toggleNotes" checked /> Notes
+            Area</label
           >
         </div>
       </div>
-  </div>
+    </div>
 
-  <div>
-    <h1>Intro To Economics</h1>
-  </div>
-  
-  <div>
-    <div class="panel" id="pdfViewer">
-        <div class="content">
-            <iframe src="/images/demo.pdf" width="100%" height="500px" frameborder="0"></iframe>
+    <div class="chatper-title-chatbot">
+      <h1>Intro To Economics</h1>
+    </div>
+
+    <div class="chatbot-main-area">
+      <div class="panel" id="pdfViewer">
+        <iframe
+          src="/images/demo.pdf#view=FitH"
+          width="100%"
+          frameborder="0"
+        ></iframe>
+      </div>
+
+      <div class="panel chatarea-container" id="chatArea">
+        <div class="chatarea-message-area">
+          <h5 class="title-bot">Chapter Bot</h5>
+          <div class="message received">Do you want me to explain you pdf?</div>
+          <div class="message sent">
+            Yes, explain it to me, assume that I have no knowledge about the pdf.
+          </div>
+          
+        </div>
+        <div class="input-area">
+          <textarea name="input-user-chat" id="" cols="30" rows="10" placeholder="Summaries this chapter...."></textarea>
+          <a href="" class="send-chatbutton"><i class="bi bi-send-fill"></i></a>
         </div>
       </div>
-    
-      <div class="panel" id="chatArea">
-        <div class="content">
-            <div class="chat-container">
-                <div class="message received">
-                  Do you want me to explain you pdf?
-                </div>
-                <div class="message sent">
-                  Yes, explain it to me, assume that I have no knowledge about the pdf.
-                </div>
-                <div class="input-area">
-                  <input type="text" placeholder="Type a message..." />
-                  <button>Send</button>
-                </div>
-              </div>
-              
-        </div>
-      </div>
-    
+
       <div class="panel" id="notesArea">
-        <div class="content">
+        <div id="toolbar">
           <div>
-            <div id="toolbar">
-              <button class="ql-bold">Bold</button>
-              <button class="ql-italic">Italic</button>
-              <button class="ql-underline">Underline</button>
-              <button class="ql-strike">Strikethrough</button>
-              <select class="ql-header">
-                <option value="1">Heading 1</option>
-                <option value="2">Heading 2</option>
-              </select>
-              <button class="ql-list" value="ordered"></button>
-              <button class="ql-list" value="bullet"></button>
-              <button class="ql-link">Link</button>
-            </div>
-            <div id="autosave-icon" class="autosave-icon">
-              <i class="bi bi-save"></i> Auto-saving...
-            </div>
+            <button class="ql-bold">Bold</button>
+            <button class="ql-italic">Italic</button>
+            <button class="ql-underline">Underline</button>
+            <button class="ql-strike">Strikethrough</button>
+            <select class="ql-header">
+              <option value="1">Heading 1</option>
+              <option value="2">Heading 2</option>
+            </select>
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-link">Link</button>
           </div>
-    
-          <div id="editor">
-            <p>Hello World!</p>
+          <div id="autosave-icon" class="autosave-icon">
+            <i class="bi bi-save"></i> 
           </div>
         </div>
+
+        <div id="editor">
+          <p>Your Notes Here ....</p>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="chatbot-button-section">
+  <a class="end-button">End Session</a>
+  <a class="checkknowledge-button">Check Knowledge</a>
+</div>
+
+<div class="container-quiz">
+  <div class="container">
+    <h1>Knowledge Check</h1>
+    <div id="quiz"></div>
+    <div id="result" class="result"></div>
+    <button id="submit" class="button">Submit</button>
+    <canvas id="foo"></canvas>
+    <button id="retry" class="button hide">Retry</button>
+    <button id="showAnswer" class="button hide">Show Answer</button>
   </div>
 </div>
 
 <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+<script src="/js/gauge.js"></script>
+
 
 <script>
   const editor = new Quill("#editor", {
@@ -93,13 +119,18 @@
     const notesArea = document.getElementById("notesArea");
 
     toggleButton.addEventListener("click", function () {
-      toggleOptions.style.display =
-        toggleOptions.style.display === "block" ? "none" : "block";
+      toggleOptions.classList.toggle("toggle-options-custom");
     });
 
     function togglePanel(checkbox, panel) {
       checkbox.addEventListener("change", function () {
-        panel.style.display = this.checked ? "block" : "none";
+        if (this.checked) {
+          panel.classList.add("show-chatbot");
+          panel.classList.remove("hidden-chatbot");
+        } else {
+          panel.classList.add("hidden-chatbot");
+          panel.classList.remove("show-chatbot");
+        }
       });
     }
 
@@ -107,6 +138,199 @@
     togglePanel(document.getElementById("toggleChat"), chatArea);
     togglePanel(document.getElementById("toggleNotes"), notesArea);
   });
+
+  const quizData = [
+  {
+  question: "Who wrote the play 'Romeo and Juliet'?",
+  options: ["William Shakespeare", "Charles Dickens", "Jane Austen", "Leo Tolstoy"],
+  answer: "William Shakespeare",
+},
+{
+  question: "What is the chemical symbol for gold?",
+  options: ["Au", "Ag", "Fe", "Pt"],
+  answer: "Au",
+},
+{
+  question: "In which year did the first man walk on the moon?",
+  options: ["1969", "1972", "1965", "1970"],
+  answer: "1969",
+},
+{
+  question: "What is the smallest ocean in the world?",
+  options: ["Arctic Ocean", "Indian Ocean", "Pacific Ocean", "Atlantic Ocean"],
+  answer: "Arctic Ocean",
+},
+{
+  question: "Which organ in the human body is responsible for filtering blood?",
+  options: ["Heart", "Liver", "Kidney", "Lungs"],
+  answer: "Kidney",
+},
+{
+  question: "In what year did World War II end?",
+  options: ["1945", "1948", "1939", "1942"],
+  answer: "1945",
+},
+{
+  question: "Which element is diamond primarily composed of?",
+  options: ["Carbon", "Silicon", "Oxygen", "Nitrogen"],
+  answer: "Carbon",
+},
+{
+  question: "What is the name of the longest river in the world?",
+  options: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"],
+  answer: "Nile River",
+},
+
+];
+
+  const quizContainer = document.getElementById("quiz");
+  const resultContainer = document.getElementById("result");
+  const submitButton = document.getElementById("submit");
+  const retryButton = document.getElementById("retry");
+  const showAnswerButton = document.getElementById("showAnswer");
+
+  let currentQuestion = 0;
+  let score = 0;
+  let incorrectAnswers = [];
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  function displayQuestion() {
+    const questionData = quizData[currentQuestion];
+
+    const questionElement = document.createElement("div");
+    questionElement.className = "question";
+    questionElement.innerHTML = questionData.question;
+
+    const optionsElement = document.createElement("div");
+    optionsElement.className = "options";
+
+    const shuffledOptions = [...questionData.options];
+    shuffleArray(shuffledOptions);
+
+    for (let i = 0; i < shuffledOptions.length; i++) {
+      const option = document.createElement("label");
+      option.className = "option";
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "quiz";
+      radio.value = shuffledOptions[i];
+
+      const optionText = document.createTextNode(shuffledOptions[i]);
+
+      option.appendChild(radio);
+      option.appendChild(optionText);
+      optionsElement.appendChild(option);
+    }
+
+    quizContainer.innerHTML = "";
+    quizContainer.appendChild(questionElement);
+    quizContainer.appendChild(optionsElement);
+  }
+
+  function checkAnswer() {
+    const selectedOption = document.querySelector('input[name="quiz"]:checked');
+    if (selectedOption) {
+      const answer = selectedOption.value;
+      if (answer === quizData[currentQuestion].answer) {
+        score++;
+      } else {
+        incorrectAnswers.push({
+          question: quizData[currentQuestion].question,
+          incorrectAnswer: answer,
+          correctAnswer: quizData[currentQuestion].answer,
+        });
+      }
+      currentQuestion++;
+      selectedOption.checked = false;
+      if (currentQuestion < quizData.length) {
+        displayQuestion();
+      } else {
+        displayResult();
+      }
+    }
+  }
+
+  function displayResult() {
+    quizContainer.style.display = "none";
+    submitButton.style.display = "none";
+    retryButton.style.display = "inline-block";
+    showAnswerButton.style.display = "inline-block";
+    var opts = {
+        angle: 0.15, // The span of the gauge arc
+        lineWidth: 0.44, // The line thickness
+        radiusScale: 1, // Relative radius
+        pointer: {
+          length: 0.6, // // Relative to gauge radius
+          strokeWidth: 0.035, // The thickness
+          color: '#000000' // Fill color
+        },
+        limitMax: false,     // If false, max value increases automatically if value > maxValue
+        limitMin: false,     // If true, the min value of the gauge will be fixed
+        colorStart: '#6FADCF',   // Colors
+        colorStop: '#8FC0DA',    // just experiment with them
+        strokeColor: '#E0E0E0',  // to see which ones work best for you
+        generateGradient: true,
+        highDpiSupport: true,     // High resolution support
+        
+      };
+      var target = document.getElementById('foo'); // your canvas element
+      var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+      gauge.maxValue = 3000; // set max gauge value
+      gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+      gauge.animationSpeed = 32; // set animation speed (32 is default value)
+      gauge.set(950); // set actual value
+    resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
+  }
+  function retryQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    incorrectAnswers = [];
+    quizContainer.style.display = "block";
+    submitButton.style.display = "inline-block";
+    retryButton.style.display = "none";
+    showAnswerButton.style.display = "none";
+    resultContainer.innerHTML = "";
+    displayQuestion();
+  }
+
+  function showAnswer() {
+    quizContainer.style.display = "none";
+    submitButton.style.display = "none";
+    retryButton.style.display = "inline-block";
+    showAnswerButton.style.display = "none";
+
+    let incorrectAnswersHtml = "";
+    for (let i = 0; i < incorrectAnswers.length; i++) {
+      incorrectAnswersHtml += `
+      <p>
+        <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
+        <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
+        <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+      </p>
+    `;
+    }
+
+    resultContainer.innerHTML = `
+    <p>You scored ${score} out of ${quizData.length}!</p>
+    <p>Incorrect Answers:</p>
+    ${incorrectAnswersHtml}
+  `;
+  }
+
+  submitButton.addEventListener("click", checkAnswer);
+  retryButton.addEventListener("click", retryQuiz);
+  showAnswerButton.addEventListener("click", showAnswer);
+
+  displayQuestion();
+
+
 </script>
 
 <%-include('partials/footer')-%>
