@@ -95,7 +95,7 @@
     <div id="quiz"></div>
     <div id="result" class="result"></div>
     <button id="submit" class="button">Submit</button>
-    <canvas id="foo"></canvas>
+    <canvas id="foo" class=""></canvas>
     <button id="retry" class="button hide">Retry</button>
     <button id="showAnswer" class="button hide">Show Answer</button>
   </div>
@@ -103,7 +103,6 @@
 
 <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
 <script src="/js/gauge.js"></script>
-
 
 <script>
   const editor = new Quill("#editor", {
@@ -150,42 +149,13 @@
   options: ["Au", "Ag", "Fe", "Pt"],
   answer: "Au",
 },
-{
-  question: "In which year did the first man walk on the moon?",
-  options: ["1969", "1972", "1965", "1970"],
-  answer: "1969",
-},
-{
-  question: "What is the smallest ocean in the world?",
-  options: ["Arctic Ocean", "Indian Ocean", "Pacific Ocean", "Atlantic Ocean"],
-  answer: "Arctic Ocean",
-},
-{
-  question: "Which organ in the human body is responsible for filtering blood?",
-  options: ["Heart", "Liver", "Kidney", "Lungs"],
-  answer: "Kidney",
-},
-{
-  question: "In what year did World War II end?",
-  options: ["1945", "1948", "1939", "1942"],
-  answer: "1945",
-},
-{
-  question: "Which element is diamond primarily composed of?",
-  options: ["Carbon", "Silicon", "Oxygen", "Nitrogen"],
-  answer: "Carbon",
-},
-{
-  question: "What is the name of the longest river in the world?",
-  options: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"],
-  answer: "Nile River",
-},
 
 ];
 
   const quizContainer = document.getElementById("quiz");
   const resultContainer = document.getElementById("result");
   const submitButton = document.getElementById("submit");
+  const canvasScore = document.getElementById('foo')
   const retryButton = document.getElementById("retry");
   const showAnswerButton = document.getElementById("showAnswer");
 
@@ -278,16 +248,16 @@
         strokeColor: '#E0E0E0',  // to see which ones work best for you
         generateGradient: true,
         highDpiSupport: true,     // High resolution support
-        
       };
-      var target = document.getElementById('foo'); // your canvas element
-      var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-      gauge.maxValue = 3000; // set max gauge value
-      gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-      gauge.animationSpeed = 32; // set animation speed (32 is default value)
-      gauge.set(950); // set actual value
+    var gauge = new Gauge(canvasScore).setOptions(opts); // create sexy gauge!
+    gauge.maxValue = 100; // set max gauge value
+    gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+    gauge.animationSpeed = 32; // set animation speed (32 is default value)
+    let total_score = (score/quizData.length) * 100 
+    gauge.set(total_score); 
     resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
   }
+
   function retryQuiz() {
     currentQuestion = 0;
     score = 0;
@@ -305,6 +275,7 @@
     submitButton.style.display = "none";
     retryButton.style.display = "inline-block";
     showAnswerButton.style.display = "none";
+
 
     let incorrectAnswersHtml = "";
     for (let i = 0; i < incorrectAnswers.length; i++) {
